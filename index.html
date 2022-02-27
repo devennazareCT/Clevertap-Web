@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="/manifest.json">
+   
+    
+    <script type="text/javascript">
+        var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
+    // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+   clevertap.account.push({"id": "65R-654-5Z6Z"});
+   clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
+   clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
+    (function () {
+            var wzrk = document.createElement('script');
+            wzrk.type = 'text/javascript';
+            wzrk.async = true;
+            wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/a.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wzrk, s);
+     })();
+   </script>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>ClevertTap Web Integration</h1>
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Hello There. </h3>
+      <p>Welcome To ClevertTap</p>
+      <button type="button" class="btn btn-danger" onclick="myFunction()">Push Event </button>
+      <button type="button" class="btn btn-danger" onclick="pushProfile()">Push Profile Data </button>
+      <button type="button" class="btn btn-danger" onclick="productView()">View Product </button>
+      <button type="button" class="btn btn-danger" onclick="pushNotification()">Push Notification</button>
+
+      <p id="demo"></p>
+
+    </div>
+   
+  </div>
+</div>
+<script>
+    function myFunction() {
+      document.getElementById("demo").innerHTML = "<b>Web View Event Pushed </b>   ";
+      clevertap.event.push("DevenWebView");
+    }
+    </script>
+
+<script>
+    function pushProfile() {
+      document.getElementById("demo").innerHTML = "<b>Profile Data Pushed </b>   ";
+      clevertap.onUserLogin.push({
+ "Site": {
+   "Name": "Deven Nazare",            // String
+   "Identity": 11223344,              // String or number
+   "Email": "testdev@gmail.com",         // Email address of the user
+   "Phone": "+8779636312",           // Phone (with the country code)
+   "Gender": "M",                     // Can be either M or F
+   "DOB": new Date(),                 // Date of Birth. Date object
+// optional fields. controls whether the user will be sent email, push etc.
+   "MSG-email": false,                // Disable email notifications
+   "MSG-push": true,                  // Enable push notifications
+   "MSG-sms": true,                   // Enable sms notifications
+   "MSG-whatsapp": true,              // Enable WhatsApp notifications
+ }
+})
+    }
+    </script>
+
+<script>
+  function pushNotification() {
+  clevertap.notifications.push({ 
+      "titleText":'Would you like to receive Push Notifications?', 
+    "bodyText":'We promise to only send you relevant content and give you updates on your transactions', 
+    "okButtonText":'Sign me up!', 
+    "rejectButtonText":'No thanks', 
+    "okButtonColor":'#f28046'});}
+  </script>
+  
+
+<script>
+    function productView() {
+      document.getElementById("demo").innerHTML = "<b>Product Viewed </b>   ";
+      clevertap.event.push("Product Viewed", {
+  "Product name":"iPhone 12",
+  "Category":"Phone",
+  "Price":759.99,
+});
+    }
+    </script>
+    <div class="btn">CLOSE</div>
+
+
+    <!-- //Firebase  Script -->
+    <script>
+    var btn = document.querySelector('.btn');
+    var wrapper = window.parent.document.getElementById('wizParDiv0');
+    btn.addEventListener('click', closePopUp);
+    function closePopUp()
+    { wrapper.remove(); }
+    </script>
+      <script src="./clevertap_sw.js">
+        </script>
+
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-analytics.js";
+        import { } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-messaging.js"
+
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCK0SUIlYj-6-JwmU9mTlyFSeavj_1BAQk",
+          authDomain: "testweb-3a7cf.firebaseapp.com",
+          projectId: "testweb-3a7cf",
+          storageBucket: "testweb-3a7cf.appspot.com",
+          messagingSenderId: "678511678738",
+          appId: "1:678511678738:web:0de690b1991619006fcfcb",
+          measurementId: "G-8TW6EVM4VL"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+
+
+
+
+</body>
+</html>
